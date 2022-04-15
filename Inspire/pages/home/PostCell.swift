@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct PostCell: View{
-    var aspectRatio = 1
+    
+    var currentPost: PostObject
+    
+    
     var body: some View{
+        
         VStack{
-            Image("test")
-                .resizable()
-                .frame(height: (UIScreen.main.bounds.width * CGFloat(aspectRatio)) - 20,
-                       alignment: .center)
+            
+            if let url = currentPost.imageURL{
+                
+                AsyncImage(url: URL(string: url)!, placeholder: {Text("Loading...")}) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                }.frame(height: (UIScreen.main.bounds.width * CGFloat(currentPost.aspectRatio)) - 20,
+                        alignment: .center)
+                
+            }
+            
                 
             HStack{
                 Image("test")
@@ -25,7 +36,7 @@ struct PostCell: View{
                     .cornerRadius(25)
                 VStack(alignment: .leading){
                     Text("MM")
-                    Text("1 hour ago")
+                    Text(currentPost.date!.convertToPast())
                         .font(.caption)
                         .foregroundColor(.gray)
                 } // VStack of Name and Time
@@ -34,18 +45,12 @@ struct PostCell: View{
             
             
             Divider().padding(.horizontal)
-            Text("Some random text with some more and more and more text. Yet another text").padding()
+            Text(self.currentPost.comment).padding().frame(maxWidth: .infinity, alignment: .leading)
             
             
         }.background(Color.white)
             .cornerRadius(10)
             .shadow(radius: 10)
              // Root VStack
-    }
-}
-
-struct Previews_PostCell_Previews: PreviewProvider {
-    static var previews: some View {
-        PostCell()
     }
 }

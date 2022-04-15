@@ -9,25 +9,27 @@ import SwiftUI
 
 struct ITabViewController: View {
     
+    @EnvironmentObject var firebaseHandler : DataHandler
+    
     var body: some View {
         TabView {
-            HomeView().tabItem {
+            HomeView(dataHandler: firebaseHandler).tabItem {
                 Image(systemName: "house.fill")
             }
             
-            ExplorePage().tabItem {
+            ExplorePage(dataHandler: firebaseHandler).tabItem {
                 Image(systemName: "bolt.circle.fill")
             }
             
-            PostingPage().tabItem {
+            PostingPage(dataHandler: firebaseHandler).tabItem {
                 Image(systemName: "arrowtriangle.up.circle.fill")
             }
             
-            NotificationPage().tabItem {
+            NotificationPage(dataHandler: firebaseHandler).tabItem {
                 Image(systemName: "tray.fill")
             }
             
-            ProfilePage().tabItem {
+            ProfilePage(dataHandler: firebaseHandler).tabItem {
                 Image(systemName: "person.circle.fill")
             }
         }.tint(.orange)

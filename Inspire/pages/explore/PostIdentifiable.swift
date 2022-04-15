@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Post: Identifiable{
+struct PostIdentifiable: Identifiable{
     var id = UUID()
-    var image = Image("test")
+    var post : PostObject
 }

@@ -9,8 +9,11 @@ import SwiftUI
 
 struct NotificationPage: View{
     
-    init(){
+    @ObservedObject var dataHandler: DataHandler
+    
+    init(dataHandler: DataHandler){
         UITableView.appearance().separatorColor = .gray
+        self.dataHandler = dataHandler
     }
     
     var body: some View{
@@ -26,8 +29,3 @@ struct NotificationPage: View{
         }
 }
 
-struct Previews_NotificationPage_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationPage()
-    }
-}

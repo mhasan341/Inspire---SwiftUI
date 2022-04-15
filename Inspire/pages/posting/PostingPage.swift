@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct PostingPage: View{
 
+    @ObservedObject var dataHandler: DataHandler
+    
     @State var postText: String = ""
     @State var isPresented: Bool = false
     @State var image: Image?
@@ -38,6 +41,7 @@ struct PostingPage: View{
                     Text("Write something below").font(.title)
                     TextView(text: $postText)
                         .frame(height: 100, alignment: .leading)
+                        
                 }.padding()
                 
                 Button(action: self.submit) {
@@ -55,11 +59,44 @@ struct PostingPage: View{
     
     func submit(){
         
-    }
-}
+        let uniqueID = UUID().uuidString
+        let ref = Storage.storage().reference().child("posts").child(uniqueID)
 
-struct Previews_PostingPage_Previews: PreviewProvider {
-    static var previews: some View {
-        PostingPage()
+        guard let uiImage = uiImage else {
+            return
+        }
+
+        ref.putData(uiImage.jpegData(compressionQuality: 0.1)!, metadata: nil) { metadata, error in
+            if let _ = error{
+                return
+            }else{
+
+                ref.downloadURL { url, error in
+
+
+
+                    if error == nil {
+
+                        let imageH = self.uiImage?.size.height ?? 0
+                        let imageW = self.uiImage?.size.width ?? 0
+                        let aspectRatio = Double(imageH / imageW)
+
+
+
+                        Database.database().reference().child("posts").child(uniqueID).updateChildValues([
+                            "imageURL":url?.absoluteString ?? "",
+                            "id": uniqueID,
+                            "comment" : self.postText,
+                            "aspectRatio": aspectRatio,
+                            "created": ServerValue.timestamp()
+                        ])
+                        
+                        
+                    }
+                }
+
+
+            }
+        }
     }
 }

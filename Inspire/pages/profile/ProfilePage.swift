@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ProfilePage: View {
     
-    var gridData = [
-        Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post(),Post()
-    ]
+    @ObservedObject var dataHandler: DataHandler
+    
     
     var body: some View {
         NavigationView {
@@ -22,17 +21,17 @@ struct ProfilePage: View {
                 Divider().frame(width:UIScreen.main.bounds.width - 40,height: 2, alignment: .center)
                 
                 
-                QGrid(gridData, columns: 3, vPadding: 10, hPadding: 5) {item in
-                    NavigationLink(destination: SinglePostView()) {
-                        item.image
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3, alignment: .center)
-                        
-                        
-                    }
+//                QGrid(gridData, columns: 3, vPadding: 10, hPadding: 5) {item in
+//                    NavigationLink(destination: SinglePostView()) {
+//                        item.image
+//                            .resizable()
+//                            .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3, alignment: .center)
+//
+//
+//                    }
                     
                     
-                }
+//                }
                 
                 
             }
@@ -49,8 +48,3 @@ struct ProfilePage: View {
     
 }
 
-struct ProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePage()
-    }
-}

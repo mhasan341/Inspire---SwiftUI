@@ -15,7 +15,7 @@ struct NotificationCellLike: View {
                     Image("test")
                         .resizable()
                         .frame(width: 50, height: 50, alignment: .center)
-                    NavigationLink(destination: SinglePostView()) {
+                    NavigationLink(destination: SinglePostView(currentPost: PostObject())) {
                         EmptyView()
                     }.buttonStyle(PlainButtonStyle()).frame(width: 50, height: 50, alignment: .center)
                 }
